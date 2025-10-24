@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  
+  <link rel="icon" type="image/png" href="videos/logo1.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bookings - CK's Cutz</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Encabezado -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">CK's Cutz</div>
+      <div class="nav-buttons">
+        <a href="malikfades.html" class="btn-nav">Home</a>
+        <a href="servvicios.html" class="btn-nav">Services</a>
+        <a href="about.html" class="btn-nav">About Me</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Formulario de reserva -->
+  <section class="reserva-gradient">
+    <div class="form-container">
+      <h1>Book your appoinment</h1>
+
+       <p>If the service is not home-based, it is not necessary to fill in the address section.<br>
+      If you choose to visit my location at SE10 0DQ, you will receive a special discount on your service.<br>
+      Message me for dates arangements</p>
+      <form id="bookingForm">
+        <label for="nombre">Full name</label>
+        <input type="text" id="nombre" name="nombre"  placeholder="Your Name" required>
+
+        <label for="email">Post Code</label>
+        <input  maxlength="7" id="email" name="email" placeholder="Post code" required>
+
+         <label for="email">Address</label>
+        <input   id="email" name="email"  placeholder="Address"required >
+
+        <label for="House">Apartment</label>
+        <input type="text" name="apartamento" placeholder="Apartment / House (opcional)">
+       
+        <label for="telefono">Phone number</label>
+        <input type="tel" id="telefono" name="telefono" placeholder="+44" maxlength="11" required>
+
+        <label for="fecha">Date</label>
+        <input type="date" id="fecha" name="fecha" placeholder="Date oy your appoiment" required>
+
+        <label for="hora">Time</label>
+        <input type="time" id="hora" name="hora" placeholder="Time of your appoiment" required>
+
+        <label for="servicio">Choose your style</label>
+        <select id="servicio" name="servicio" required>
+          <option value="Low Fade">1 - Brust Fade Mohawk </option>
+          <option value="Hight Top Fade">2 - Buzz cut</option>
+          <option value="Taper Fade">3 - Hight Top Fade</option>
+          <option value="Brust Fade Mohawk">4 - Crew cut </option>
+          <option value="Brust Fade Mohawk">5 - Low Taper Fade </option>
+          <option value="But Cut">6 - Line up Low Fade</option>
+          <option value="Enrs Cut">7 - Man Bum Taper</option>
+          <option value="Mullet">8 - Low Taper Afro </option>
+          <option value="Manbun Taper">9 - Hight Top Fade</option>
+          <option value="Line up">10 - Blur Fade Mohawk</option>
+          <option value="Higt Fade">11 - Mid Taper</option>
+          <option value="Mid Fade"> 12 - Mid Fade fade</option>
+        </select>
+
+        <!-- En vez de <button type="submit">Reservar</button> -->
+        <div class="botones-envio">
+        <button type="button" onclick="enviarWhatsApp()">Send through WhatsApp</button>
+        <button type="button" onclick="enviarIMsg()">Send through iMessage</button>
+        </div>
+
+      </form>
+        <div id="mensaje-confirmacion" style="display: none; margin-top: 20px; text-align: center; color: #4b3e2d; font-weight: bold;">
+        Thanks you fr you booking! you will get a confimation soon! Have in account there might be some arrengments with date and time; the sooner.<br>
+        The sooner before the date the better.
+        </div>
+
+
+         <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+    </div>
+     
+
+     <script>
+    function openForm() {
+      document.getElementById("reserveForm").style.display = "block";
+    }
+    function closeForm() {
+      document.getElementById("reserveForm").style.display = "none";
+    }
+  </script>
+
+
+
+
+ <script>
+  function getDatosReserva() {
+    return {
+      nombre: document.getElementById("nombre").value,
+      email: document.getElementById("email").value,
+      telefono: document.getElementById("telefono").value,
+      fecha: document.getElementById("fecha").value,
+      hora: document.getElementById("hora").value,
+      servicio: document.getElementById("servicio").value
+    };
+  }
+
+  function limpiarFormulario() {
+    document.getElementById("bookingForm").reset();
+  }
+
+  function mostrarMensajeConfirmacion() {
+  const mensajeDiv = document.getElementById("mensaje-confirmacion");
+  mensajeDiv.style.display = "block";
+  mensajeDiv.innerText = " ¡Thanks you for you booking! you will get a confimation soon, have in account there might be some arrengments with date and time; the sooner.<br>The sooner before the date the better.";
+
+  // Ocultar el mensaje después de 6 segundos
+  setTimeout(() => {
+    mensajeDiv.style.display = "none";
+  }, 10000);
+}
+
+  function enviarWhatsApp() {
+    const datos = getDatosReserva();
+    const mensaje = `Hi there, I'd love to contract your services:\n\nName: ${datos.nombre}\nEmail: ${datos.email}\nPhone number: ${datos.telefono}\nDate: ${datos.fecha}\nTime: ${datos.hora}\nServices: ${datos.servicio}`;
+    const telefonoDestino = "+4407708400235"; // ← Tu número de WhatsApp
+    const url = `https://wa.me/${telefonoDestino}?text=${encodeURIComponent(mensaje)}`;
+    window.open(url, "_blank");
+    enviarAGoogleCalendar(datos);
+
+    mostrarMensajeConfirmacion();
+    limpiarFormulario();
+  }
+
+  function enviarIMsg() {
+    const datos = getDatosReserva();
+    const mensaje = `Hello, I'd like to book an appoiment:\nName: ${datos.nombre}\nEmail: ${datos.email}\nTeléfono: ${datos.telefono}\nFecha: ${datos.fecha}\nHora: ${datos.hora}\nServicio: ${datos.servicio}`;
+    const telefonoDestino = "+4407708400235"; // ← Tu número para iMessage
+    const url = `sms:${telefonoDestino}&body=${encodeURIComponent(mensaje)}`;
+    window.location.href = url;
+    enviarAGoogleCalendar(datos);
+
+    mostrarMensajeConfirmacion();
+    limpiarFormulario();
+  }
+
+function enviarAGoogleCalendar(datos) {
+  fetch("https://script.google.com/macros/s/AKfycbybOjD3cRMMLwOd3iao0WLs2yCtndYtoN3rhD2F5Rfu-utNLrXeha4WeSjTCfgkjlUbrw/exec", {
+    method: "POST",
+    body: JSON.stringify(datos),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+
+
+  .then(response => response.text())
+  .then(texto => {
+    if (texto.startsWith("OK")) {
+      console.log("Reserva guardada en Google Calendar.");
+    } else if (texto.startsWith("ERROR")) {
+      alert("⚠️ " + texto.replace("ERROR: ", ""));
+    }
+  })
+  .catch(err => console.error("Error:", err));
+}
+</script>
+
+
+</body>
+</html>
