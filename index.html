@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/png" href="videos/logo1.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ck's Cutz - Home</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Encabezado con enlaces a la derecha -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">CK's Cutz</div>
+      <div class="nav-buttons">
+        <a href="servvicios.html" class="btn-nav">Services</a>
+        <a href="about.html" class="btn-nav">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Sección principal con imagen de fondo -->
+  <section class="hero">
+    <div class="overlay"></div>
+    <div class="content">
+      <h1>CK's Cutz</h1>
+      <p>Cutting on your own conffort</p>
+      <button onclick="openForm()" class="btn-reserva">Book your appoinmet</button>
+      <a href="https://www.instagram.com/cks_touch?igsh=c3AzbDBobmMweHRy" target="_blank" class="instagram">Follow the instagram</a>
+
+      <!-- 🎥 Video centrado -->
+      <div class="video-box">
+        <video autoplay muted loop playsinline>
+          <source src="videos/Video.mp4" type="video/mp4">
+          Tu navegador no soporta videos HTML5.
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <!-- Formulario emergente -->
+ <div class="form-popup" id="reserveForm">
+  <form class="form-container">
+    <h2>Book your appointment</h2>
+    <a href="bookings.html" class="btn">Bookings</a>
+    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+  </form>
+</div>
+>
+
+  <script>
+    function openForm() {
+      document.getElementById("reserveForm").style.display = "block";
+    }
+    function closeForm() {
+      document.getElementById("reserveForm").style.display = "none";
+    }
+  </script>
+</body>
+</html>
